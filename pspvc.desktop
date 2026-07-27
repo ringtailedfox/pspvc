@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=PSP Video Converter
+Comment=Convert videos to PSP-compatible MP4 format
+Exec=pspvc
+Icon=pspvc
+Terminal=false
+Categories=AudioVideo;Video;GTK;
+StartupNotify=true

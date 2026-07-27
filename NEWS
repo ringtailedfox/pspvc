@@ -1,0 +1,96 @@
+📦 PSPVC v0.4 — C Edition (2026)
+This is the first full C/GTK3 rewrite of PSPVC — a lightweight tool for converting videos into PSP‑compatible MP4 format.
+The original PSPVC v0.3 (Python Edition) by Philippe MAES inspired this modernized release, which improves performance, UI behavior, packaging, and long‑term maintainability.
+
+Both versions are included:
+
+pspvc — C/GTK3 Edition (recommended)
+
+pspvc-python — original Python Edition (optional)
+
+---
+
+✨ What’s New in v0.4 (C Edition)
+* Complete rewrite in C using GTK+ 3
+* Faster startup and improved responsiveness
+* Clean, modernized UI layout
+* Proper Cancel → Close behavior with ffmpeg termination
+* Auto‑generated THM thumbnails
+* Auto‑suggested PSP filenames (MAQxxxxx.MP4)
+* Updated H.264/AVC encoding profiles
+* Volume adjustment slider
+* Desktop launcher (pspvc.desktop)
+* New padded square icon (pspvc.png)
+* Optional Python Edition included (pspvc-python)
+* GPLv2 licensing
+* New documentation: INSTALL, LICENSE, COPYING, CREDITS, CHANGELOG
+* Improved Autotools build system
+* Ready for DEB, RPM, AUR, and other distro packaging
+
+---
+
+🔧 Building from Source
+```
+./configure
+make
+sudo make install
+```
+
+Installs:
+
+```
+* /usr/bin/pspvc
+* /usr/bin/pspvc-python
+* /usr/share/pspvc/pixmaps/
+* /usr/share/applications/pspvc.desktop
+```
+
+---
+
+🐍 Python Edition
+The original Python version (pspvc-python) is included for users who prefer it.
+Requires:
+
+* Python 3
+* PyGObject
+* ffmpeg
+* x264
+
+---
+
+📜 License
+PSPVC is licensed under the GNU GPL v2.
+See the `LICENSE` and `COPYING` files for details.
+
+---
+
+❤️ Credits
+Original PSPVC v0.3 (Python Edition)  
+Philippe MAES
+http://pspvc.sourceforge.net
+
+C/GTK3 Edition (v0.4)  
+RingtailedFox (2026)
+https://github.com/ringtailedfox/pspvc (github.com in Bing)
+
+Translations (v0.3)
+
+Philippe MAES — English / French
+
+Luca CALABRO — Italian
+
+Tomasz DOMINIKOWSKI — Polish
+
+Ienooh — Slovenian
+
+Christian Stake — German
+
+---
+
+📷 Screenshots
+None at this time
+
+---
+
+🚀 Notes
+This release modernizes PSPVC for current Linux systems, improves stability, and prepares the project for long‑term maintenance and packaging. The C Edition is now the recommended version for most users.

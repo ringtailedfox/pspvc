@@ -1,0 +1,5 @@
+pspvc-profile.o: profile.c /usr/include/stdc-predef.h \
+ ../include/profile.h /usr/lib/gcc/aarch64-linux-gnu/14/include/stddef.h
+/usr/include/stdc-predef.h:
+../include/profile.h:
+/usr/lib/gcc/aarch64-linux-gnu/14/include/stddef.h:

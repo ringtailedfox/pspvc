@@ -1,0 +1,43 @@
+PSPVC — PSP Video Converter
+Credits & Acknowledgements
+
+Original Author (PSPVC v0.3)
+---------------------------
+Philippe MAES
+http://pspvc.sourceforge.net
+
+C/GTK3 Edition (PSPVC v0.4)
+---------------------------
+RingtailedFox (2026)
+https://github.com/ringtailedfox/pspvc
+
+Translations (PSPVC v0.3)
+-------------------------
+Philippe MAES        — English / French
+Luca CALABRO         — Italian
+Tomasz DOMINIKOWSKI  — Polish
+Ienooh               — Slovenian
+Christian Stake      — German
+
+Inspiration
+-----------
+This C Edition is inspired by the original PSPVC v0.3 project
+created by Philippe MAES.
+
+Libraries & Tools
+-----------------
+GTK+ 3        — Graphical toolkit
+FFmpeg        — Video processing backend
+x264          — H.264 encoder
+Autotools     — Build system
+PyGObject     — Python GTK bindings (optional)
+
+Packaging & Distribution
+------------------------
+Thanks to the Linux community for prior PSPVC packaging work,
+including Gentoo ebuild maintainers and AUR contributors.
+
+Special Thanks
+--------------
+To everyone who contributed feedback, testing, and ideas for
+improving PSPVC across its Python and C editions.

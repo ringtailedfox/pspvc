@@ -1,0 +1,59 @@
+PSPVC — PSP Video Converter
+Changelog
+=========
+
+v0.4 (C Edition) — 2026
+-----------------------
+• Complete rewrite of PSPVC in C using GTK+ 3
+• Faster startup and improved UI responsiveness
+• New Cancel → Close behavior with proper ffmpeg termination
+• Auto-generation of THM thumbnails
+• Auto-suggested PSP filenames (MAQxxxxx.MP4)
+• Updated H.264/AVC encoding profiles
+• Added volume adjustment control
+• Added desktop launcher (pspvc.desktop)
+• Added optional Python Edition (pspvc-python)
+• Added pixmap installation and icon support
+• Added GPLv2 licensing, INSTALL, LICENSE, COPYING, and CREDITS files
+• Improved Autotools build system and packaging layout
+
+v0.3 (Original C Edition)
+------------------------------
+• Updated ffmpeg and x264 support
+• Added freedesktop menu entry
+• Added H.264/AVC 480×272 profile
+• Simplified conversion parameters
+• Added input format validation with error messages
+• Added Slovenian and German translations
+• Added multi-core support via --threads option
+
+v0.2.1
+------
+• Reorganized interface option order
+• Added About window
+• Improved convert window title handling
+• Thumbnail selection now respects video duration
+• Added Polish translation
+
+v0.2
+----
+• Updated compatibility with newer GCC versions
+• Added estimated time display
+• Added thumbnail selection feature
+
+v0.1.3
+------
+• Fixed audio desynchronization for 25 fps sources
+• Added Italian translation
+
+v0.1.2
+------
+• Updated maximum video and audio bitrates
+• Removed duplicate audio bitrate parameter for MPEG4/SP
+• Fixed queue duplication bug
+• Improved 2-pass log filename handling
+• Fixed buffer overflow in title field
+
+v0.1.1a
+-------
+• Added French translation

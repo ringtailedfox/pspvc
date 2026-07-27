@@ -1,0 +1,585 @@
+#!/usr/bin/env python3
+import gi
+gi.require_version("Gtk", "3.0")
+
+import subprocess
+import shlex
+from gi.repository import Gtk, GObject, GLib, GdkPixbuf, Gdk
+import os
+
+
+
+
+FFMPEG = "/usr/bin/ffmpeg"
+
+PROFILES = [
+    ("1) H264/AVC (16/9) 480x272 vb=384kb ab=64kb", 0, 3, 384, 64),
+    ("2) H264/AVC (16/9) 480x272 vb=512kb ab=128kb", 0, 3, 512, 128),
+    ("3) H264/AVC (4/3) 368x208 vb=384kb ab=64kb", 0, 2, 384, 64),
+    ("4) H264/AVC (4/3) 368x208 vb=512kb ab=128kb", 0, 2, 512, 128),
+    ("5) H264/AVC (4/3) 320x240 vb=384kb ab=64kb", 0, 1, 384, 64),
+    ("6) H264/AVC (4/3) 320x240 vb=512kb ab=128kb", 0, 1, 512, 128),
+    ("7) MPEG4 (4/3) 368x208 vb=384kb ab=64kb",     1, 2, 384, 64),
+    ("8) MPEG4 (4/3) 368x208 vb=512kb ab=128kb",    1, 2, 512, 128),
+    ("9) MPEG4 (4/3) 320x240 vb=384kb ab=64kb",     1, 1, 384, 64),
+    ("10) MPEG4 (4/3) 320x240 vb=512kb ab=128kb",   1, 1, 512, 128),
+
+    # Experimental PSP modes (H.264 only)
+    ("11) H264/AVC (16/9) 480x272 vb=768kb ab=64kb",   0, 3, 768, 64),
+    ("12) H264/AVC (16/9) 480x272 vb=1024kb ab=64kb",  0, 3, 1024, 64),
+    ("13) H264/AVC (16/9) 480x272 vb=384kb ab=32kb",   0, 3, 384, 32),
+]
+
+TOOLTIPS = {
+    10: "Experimental - High Quality: 768kbps video, 64kbps audio",
+    11: "Experimental - High Quality+: 1024kbps video, 64kbps audio",
+    12: "Experimental - Low Power: 384kbps video, 32kbps audio",
+}
+
+
+def aspect_to_size(aspect):
+    if aspect == 3:
+        return "480x272"
+    elif aspect == 2:
+        return "368x208"
+    else:
+        return "320x240"
+
+def get_duration_seconds(path):
+    # Try ffprobe first
+    ffprobe = FFMPEG.replace("ffmpeg", "ffprobe")
+    args = [
+        ffprobe,
+        "-v", "error",
+        "-show_entries", "format=duration",
+        "-of", "default=noprint_wrappers=1:nokey=1",
+        path,
+    ]
+    try:
+        out = subprocess.check_output(args, text=True).strip()
+        return float(out)
+    except Exception:
+        return None
+
+def generate_thm(src, out_mp4, second):
+    dir_ = os.path.dirname(out_mp4)
+    stem, _ = os.path.splitext(out_mp4)
+    thm_path = stem + ".THM"
+
+    args = [
+        FFMPEG,
+        "-y",
+        "-ss", str(second),
+        "-i", src,
+        "-vframes", "1",
+        "-s", "160x120",
+        "-f", "mjpeg",
+        thm_path,
+    ]
+    subprocess.run(args)
+
+    return thm_path
+
+def find_next_psp_number(directory, prefix):
+    """
+    Scan directory for prefixNNNNN.MP4 and return the next available number.
+    """
+    max_num = 0
+    for name in os.listdir(directory):
+        if name.startswith(prefix) and name.lower().endswith(".mp4"):
+            try:
+                num = int(name[len(prefix):len(prefix)+5])
+                if num > max_num:
+                    max_num = num
+            except ValueError:
+                pass
+    return max_num + 1
+
+
+class PSPConverter(Gtk.Window):
+    def __init__(self):
+        super().__init__(title="PSP Video Converter (v0.4 Python Edition)")
+        self.set_size_request(626, 300)
+        self.set_border_width(8)
+        overlay = Gtk.Overlay()
+        self.add(overlay)
+        grid = Gtk.Grid(column_spacing=6, row_spacing=6)
+        overlay.add(grid)
+        grid.set_column_homogeneous(False)
+
+        spacer = Gtk.Box()
+        spacer.set_size_request(1, 1)
+
+        grid.attach(Gtk.Box(), 2, 2, 1, 1)
+        grid.attach(Gtk.Box(), 2, 3, 1, 1)
+        grid.attach(Gtk.Box(), 2, 4, 1, 1)
+        grid.attach(Gtk.Box(), 2, 5, 1, 1)
+
+        # Top banner
+        try:
+            banner = Gtk.Image.new_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file("pixmaps/pspvc_09.png"))
+            grid.attach(banner, 0, 0, 3, 1)
+        except Exception:
+            pass
+
+        # Filename
+        grid.attach(Gtk.Label(label="Filename:", halign=Gtk.Align.START), 0, 1, 1, 1)
+        self.entry_filename = Gtk.Entry()
+        self.entry_filename.set_hexpand(True)
+        self.entry_filename.set_halign(Gtk.Align.FILL)
+        grid.attach(self.entry_filename, 1, 1, 1, 1)
+        btn_browse = Gtk.Button(label="Browse")
+        btn_browse.set_halign(Gtk.Align.END)
+        btn_browse.set_hexpand(False)
+        btn_browse.connect("clicked", self.on_browse)
+        btn_browse.set_relief(Gtk.ReliefStyle.NORMAL)
+        btn_browse.set_property("margin", 0)
+        btn_browse.set_property("border-width", 0)
+        grid.attach(btn_browse, 2, 1, 1, 1)
+
+        # Title
+        grid.attach(Gtk.Label(label="Title:", halign=Gtk.Align.START), 0, 2, 1, 1)
+        self.entry_title = Gtk.Entry()
+        self.entry_title.set_hexpand(True)
+        self.entry_title.set_halign(Gtk.Align.FILL)
+        grid.attach(self.entry_title, 1, 2, 1, 1)
+
+        # Profile
+        grid.attach(Gtk.Label(label="Profile:", halign=Gtk.Align.START), 0, 3, 1, 1)
+        self.combo_profile = Gtk.ComboBoxText()
+        self.combo_profile.set_has_tooltip(True)
+        self.combo_profile.connect("query-tooltip", self.on_query_tooltip)
+        self.combo_profile.set_hexpand(True)
+        self.combo_profile.set_halign(Gtk.Align.FILL)
+        for text, *_ in PROFILES:
+            self.combo_profile.append_text(text)
+        self.combo_profile.set_active(0)
+        grid.attach(self.combo_profile, 1, 3, 1, 1)
+        self.combo_profile.connect("changed", self.on_profile_changed)
+
+        # Volume
+        grid.attach(Gtk.Label(label="Volume (%):", halign=Gtk.Align.START), 0, 4, 1, 1)
+        adj = Gtk.Adjustment(
+            value=100,
+            lower=0,
+            upper=200,
+            step_increment=1,
+            page_increment=10,
+            page_size=0
+        )
+        self.spin_volume = Gtk.SpinButton(adjustment=adj)
+        self.spin_volume.set_hexpand(True)
+        self.spin_volume.set_halign(Gtk.Align.FILL)
+        grid.attach(self.spin_volume, 1, 4, 1, 1)
+
+        # PSP filename
+        grid.attach(Gtk.Label(label="PSP Filename:", halign=Gtk.Align.START), 0, 5, 1, 1)
+        self.entry_pspname = Gtk.Entry()
+        self.entry_pspname.set_text("MAQ00000.MP4")
+        self.entry_pspname.set_hexpand(True)
+        self.entry_pspname.set_halign(Gtk.Align.FILL)
+        grid.attach(self.entry_pspname, 1, 5, 1, 1)
+
+        # Buttons
+        btn_convert = Gtk.Button(label="Convert")
+        btn_convert.connect("clicked", self.on_convert)
+        btn_convert.set_halign(Gtk.Align.END)
+        btn_convert.set_hexpand(False)
+        grid.attach(btn_convert, 2, 6, 1, 1)
+
+        btn_about = Gtk.Button(label="About")
+        btn_about.connect("clicked", self.on_about)
+        btn_about.set_halign(Gtk.Align.START)
+        btn_about.set_hexpand(False)
+        grid.attach(btn_about, 0, 6, 1, 1)
+
+        # Bottom logo
+        try:
+            pix = GdkPixbuf.Pixbuf.new_from_file("pixmaps/pspvc_logo.png")
+            logo = Gtk.Image.new_from_pixbuf(pix)
+
+            logo.set_halign(Gtk.Align.CENTER)
+            logo.set_valign(Gtk.Align.START)
+
+            overlay.add_overlay(logo)
+
+            # Move the logo upward until it visually aligns with the buttons
+            logo.set_margin_top(235)
+
+        except Exception:
+            pass
+
+        self.show_all()
+
+        width = self.get_allocated_width()
+        height = self.get_allocated_height()
+        print("Window size:", width, "x", height)
+
+    def on_query_tooltip(self, widget, x, y, keyboard_mode, tooltip):
+        idx = self.combo_profile.get_active()
+        if idx in TOOLTIPS:
+            tooltip.set_text(TOOLTIPS[idx])
+            return True
+        return False
+
+    def on_browse(self, button):
+        dialog = Gtk.FileChooserDialog(
+            title="Open File",
+            parent=self,
+            action=Gtk.FileChooserAction.OPEN,
+        )
+        dialog.add_buttons(
+            Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+            Gtk.STOCK_OPEN, Gtk.ResponseType.ACCEPT
+        )
+        if dialog.run() == Gtk.ResponseType.ACCEPT:
+            path = dialog.get_filename()
+            self.entry_filename.set_text(path)
+            base = os.path.basename(path)
+            title, _ = os.path.splitext(base)
+            self.entry_title.set_text(title)
+
+            # Simple PSP filename suggestion
+            dir_ = os.path.dirname(path)
+
+            # Determine prefix based on codec (default H.264)
+            prefix = "MAQ"
+
+            # Find next number
+            next_num = find_next_psp_number(dir_, prefix)
+            pspname = f"{prefix}{next_num:05d}.MP4"
+
+            self.entry_pspname.set_text(pspname)
+
+        dialog.destroy()
+
+    def on_profile_changed(self, combo):
+        src = self.entry_filename.get_text()
+        if not src:
+            return
+
+        dir_ = os.path.dirname(src)
+
+        idx = self.combo_profile.get_active()
+
+        # Tooltip update
+        if idx in TOOLTIPS:
+            self.combo_profile.set_tooltip_text(TOOLTIPS[idx])
+        else:
+            self.combo_profile.set_tooltip_text(None)
+
+        profile = PROFILES[idx]
+        codec = profile[1]
+
+        # MAQ for H.264, M4V for MPEG4
+        prefix = "MAQ" if codec == 0 else "M4V"
+
+        next_num = find_next_psp_number(dir_, prefix)
+        pspname = f"{prefix}{next_num:05d}.MP4"
+
+        self.entry_pspname.set_text(pspname)
+
+
+
+
+    def on_about(self, button):
+        dialog = AboutWindow(self)
+        dialog.run()
+        dialog.destroy()
+
+    def on_convert(self, button):
+        src = self.entry_filename.get_text()
+        title = self.entry_title.get_text()
+        if not src:
+            return
+
+        idx = self.combo_profile.get_active()
+        profile = PROFILES[idx]
+        codec, aspect, vb, ab = profile[1], profile[2], profile[3], profile[4]
+        size = aspect_to_size(aspect)
+
+        # Output path
+        dir_ = os.path.dirname(src)
+        stem, _ = os.path.splitext(self.entry_pspname.get_text())
+        thm_path = os.path.join(dir_, stem + ".THM")
+
+        out = os.path.join(dir_, self.entry_pspname.get_text())
+
+
+        # Build ffmpeg command
+        args = [
+            FFMPEG,
+            "-y",
+            "-i", src,
+            "-progress", "pipe:1",
+            "-nostdin",
+            "-stats_period", "0.5",
+            "-c:a", "aac",
+            "-b:a", f"{ab}k",
+            "-af", f"volume={self.spin_volume.get_value()/100.0}",
+        ]
+
+        if codec == 0:
+            args += ["-c:v", "libx264"]
+        else:
+            args += ["-c:v", "mpeg4"]
+
+        args += [
+            "-b:v", f"{vb}k",
+            "-ar", "48000" if codec == 0 else "24000",
+            "-s", size,
+            "-r", "30000/1001",
+            "-movflags", "+faststart",
+            "-title", title,
+            out,
+        ]
+
+        ConvertWindow(self, src, out, args)
+
+
+class ConvertWindow(Gtk.Window):
+    def __init__(self, parent, src, out, ffmpeg_args):
+        super().__init__(title="Converting...")
+        self.set_transient_for(parent)
+        self.set_border_width(8)
+
+        self.src = src
+        self.out = out
+        self.ffmpeg_args = ffmpeg_args
+        self.duration = get_duration_seconds(src)
+        self.proc = None
+
+        grid = Gtk.Grid(column_spacing=6, row_spacing=6)
+        self.add(grid)
+
+        grid.attach(Gtk.Label(label="Converting:"), 0, 0, 1, 1)
+        grid.attach(Gtk.Label(label=src), 1, 0, 2, 1)
+
+        grid.attach(Gtk.Label(label="To:"), 0, 1, 1, 1)
+        grid.attach(Gtk.Label(label=out), 1, 1, 2, 1)
+
+        self.progress = Gtk.ProgressBar()
+        self.progress.set_show_text(True)
+        grid.attach(self.progress, 0, 2, 3, 1)
+
+        # Thumbnail
+        self.image = Gtk.Image()
+
+        try:
+            pix = GdkPixbuf.Pixbuf.new_from_file("pixmaps/pspvc_thm.png")
+            self.image.set_from_pixbuf(pix)
+        except Exception:
+            pass
+
+        grid.attach(self.image, 0, 3, 1, 2)
+
+        grid.attach(Gtk.Label(label="From second:"), 1, 3, 1, 1)
+        adj = Gtk.Adjustment(
+            value=1,
+            lower=0,
+            upper=3600,
+            step_increment=1,
+            page_increment=10,
+            page_size=0
+        )
+
+        self.spin_second = Gtk.SpinButton(adjustment=adj)
+        grid.attach(self.spin_second, 2, 3, 1, 1)
+
+        btn_thm = Gtk.Button(label="Generate Thumbnail")
+        btn_thm.connect("clicked", self.on_generate_thumbnail)
+        grid.attach(btn_thm, 1, 4, 1, 1)
+
+        self.btn_cancel = Gtk.Button(label="Cancel")
+        self.cancel_handler = self.btn_cancel.connect("clicked", self.on_cancel)
+        grid.attach(self.btn_cancel, 2, 4, 1, 1)
+
+
+        self.show_all()
+
+        self.start_ffmpeg()
+
+    def start_ffmpeg(self):
+        self.proc = subprocess.Popen(
+            self.ffmpeg_args,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            bufsize=1,
+        )
+        GLib.io_add_watch(self.proc.stdout, GLib.IO_IN | GLib.IO_HUP, self.on_ffmpeg_output)
+
+    def on_ffmpeg_output(self, source, condition):
+        if condition & GLib.IO_HUP:
+            # FFmpeg ended
+            self.progress.set_fraction(1.0)
+            self.progress.set_text("100% - complete")
+            self.switch_to_close()
+
+            # Auto-generate THM
+            sec = int(self.spin_second.get_value())
+            thm_path = generate_thm(self.src, self.out, sec)
+
+            # Load thumbnail if it exists
+            if os.path.exists(thm_path):
+                pix = GdkPixbuf.Pixbuf.new_from_file(thm_path)
+                self.image.set_from_pixbuf(pix)
+            return False
+
+
+        line = source.readline()
+        if not line:
+            return True
+
+        line = line.strip()
+
+        # Example FFmpeg progress lines:
+        # out_time=00:00:04.10
+        # progress=continue
+        # progress=end
+
+        if line.startswith("out_time=") and self.duration:
+            t = line.split("=", 1)[1]
+            try:
+                h, m, s = t.split(":")
+                seconds = int(h) * 3600 + int(m) * 60 + float(s)
+                frac = max(0.0, min(1.0, seconds / self.duration))
+                percent = int(frac * 100)
+                self.progress.set_fraction(frac)
+                self.progress.set_text(f"{percent}% complete")
+                self.progress.queue_draw()
+            except Exception:
+                pass
+
+        elif line.startswith("progress="):
+            status = line.split("=", 1)[1]
+            if status == "end":
+                self.progress.set_fraction(1.0)
+                self.progress.set_text("100% - complete")
+                self.switch_to_close()
+
+                # Auto-generate THM
+                sec = int(self.spin_second.get_value())
+                thm_path = generate_thm(self.src, self.out, sec)
+
+                if os.path.exists(thm_path):
+                    pix = GdkPixbuf.Pixbuf.new_from_file(thm_path)
+                    self.image.set_from_pixbuf(pix)
+
+                return False
+
+        return True
+
+    def on_generate_thumbnail(self, button):
+        sec = int(self.spin_second.get_value())
+        dir_ = os.path.dirname(self.src)
+        base = os.path.basename(self.src)
+        stem, _ = os.path.splitext(base)
+        thm_path = os.path.join(dir_, stem + ".THM")
+
+        args = [
+            FFMPEG,
+            "-y",
+            "-ss", str(sec),
+            "-i", self.src,
+            "-vframes", "1",
+            "-s", "160x120",
+            "-f", "mjpeg",
+            thm_path,
+        ]
+        subprocess.run(args)
+
+        # Load thumbnail
+        if os.path.exists(thm_path):
+            pix = GdkPixbuf.Pixbuf.new_from_file(thm_path)
+            self.image.set_from_pixbuf(pix)
+
+    def on_cancel(self, button):
+        if self.proc and self.proc.poll() is None:
+            self.proc.terminate()
+            self.progress.set_text("0% - stopped")
+        # Switch Cancel -> Close
+        self.switch_to_close()
+
+    def switch_to_close(self):
+        self.btn_cancel.set_label("Close")
+        self.btn_cancel.disconnect(self.cancel_handler)
+        self.btn_cancel.connect("clicked", lambda b: self.destroy())
+
+
+
+class AboutWindow(Gtk.Dialog):
+    def __init__(self, parent):
+        super().__init__(title="About PSPVC", transient_for=parent, flags=0)
+        self.set_default_size(400, 300)
+
+        box = self.get_content_area()
+
+        # PSP logo at the top
+        try:
+            pix = GdkPixbuf.Pixbuf.new_from_file("pixmaps/psp-console.png")
+            logo = Gtk.Image.new_from_pixbuf(pix)
+            logo.set_halign(Gtk.Align.CENTER)
+            box.add(logo)
+        except Exception:
+            pass
+
+        # Scrolled text area
+        scroller = Gtk.ScrolledWindow()
+        scroller.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        scroller.set_min_content_height(200)   # adjust as needed
+        box.add(scroller)
+
+        # TextView for selectable, scrollable text
+        textview = Gtk.TextView()
+        textview.set_editable(False)
+        textview.set_cursor_visible(False)
+        textview.set_wrap_mode(Gtk.WrapMode.WORD)
+
+        buffer = textview.get_buffer()
+
+        # Create center-alignment tag
+        tag_table = buffer.get_tag_table()
+        center_tag = Gtk.TextTag.new("center")
+        center_tag.set_property("justification", Gtk.Justification.CENTER)
+        tag_table.add(center_tag)
+
+        about_text = (
+            "PlayStation Portable Video Converter v0.4 (Python Edition)\n"
+            "(http://github.com/ringtailedfox/pspvc)\n\n"
+            "Inspired by PSPVC v0.3\n"
+            "(http://pspvc.sourceforge.net)\n\n"
+            "License: GPL v2\n"
+            "http://www.gnu.org/licenses/gpl.txt\n\n"
+            "Author: Philippe MAES\n\n"
+            "Python/GTK3 Edition:\n"
+            "RingtailedFox (2026)\n\n"
+            "Translations:\n"
+            "Philippe MAES (English-French)\n"
+            "Luca CALABRO (Italian)\n"
+            "Tomasz DOMINIKOWSKI (Polish)\n"
+            "Ienooh (Slovenian)\n"
+            "Christian Stake (German)\n"
+        )
+
+        buffer.set_text(about_text)
+
+        # Apply center alignment to all text
+        start_iter = buffer.get_start_iter()
+        end_iter = buffer.get_end_iter()
+        buffer.apply_tag(center_tag, start_iter, end_iter)
+
+        scroller.add(textview)
+
+
+        self.add_button("Close", Gtk.ResponseType.CLOSE)
+        self.show_all()
+
+
+def main():
+    win = PSPConverter()
+    win.connect("destroy", Gtk.main_quit)
+    Gtk.main()
+
+if __name__ == "__main__":
+    main()

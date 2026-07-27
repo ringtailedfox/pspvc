@@ -1,0 +1,224 @@
+# PSPVC
+# Copyright (C) 2006 PSPVC - Philippe MAES
+# This file is distributed under the same license as the PSPVC package.
+# FIRST Tomasz Dominikowski <dominikowski@gmail.com>, 2006.
+# , fuzzy
+#
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: pspvc\n"
+"Report-Msgid-Bugs-To: ringtailedfox\n"
+"POT-Creation-Date: 2026-07-27 00:18-0400\n"
+"PO-Revision-Date: 2007-03-12 19:18+0100\n"
+"Last-Translator: Tomasz Dominikowski <dominikowski@gmail.com>\n"
+"Language-Team: Tomasz Dominikowski <dominikowski@gmail.com>\n"
+"Language: pl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: Polish\n"
+"X-Poedit-Country: POLAND\n"
+
+#: src/ui_main.c:39
+msgid "PSP Video Converter (v0.4 C Edition)"
+msgstr ""
+
+#: src/ui_main.c:73
+#, fuzzy
+#| msgid "Filename"
+msgid "Filename:"
+msgstr "Nazwa pliku"
+
+#: src/ui_main.c:82
+msgid "Browse"
+msgstr "Przeglądaj"
+
+#: src/ui_main.c:88
+#, fuzzy
+#| msgid "Title"
+msgid "Title:"
+msgstr "Tytuł"
+
+#: src/ui_main.c:97
+#, fuzzy
+#| msgid "Profile"
+msgid "Profile:"
+msgstr "Profil"
+
+#: src/ui_main.c:115
+#, fuzzy
+#| msgid "Volume"
+msgid "Volume (%):"
+msgstr "Głośność"
+
+#: src/ui_main.c:125
+#, fuzzy
+#| msgid "PSP Filename"
+msgid "PSP Filename:"
+msgstr "Nazwa pliku na PSP"
+
+#: src/ui_main.c:135
+msgid "Convert"
+msgstr "Konwertuj"
+
+#: src/ui_main.c:141
+#, fuzzy
+#| msgid "About PSPVC"
+msgid "About"
+msgstr "O PSPVC"
+
+#: src/ui_main.c:168
+msgid "Select input video"
+msgstr ""
+
+#: src/ui_main.c:171
+#, fuzzy
+#| msgid "Cancel"
+msgid "_Cancel"
+msgstr "Anuluj"
+
+#: src/ui_main.c:172
+msgid "_Open"
+msgstr ""
+
+#: src/ui_convert.c:17
+#, fuzzy
+#| msgid "Converting:"
+msgid "Converting..."
+msgstr "Konwertowanie:"
+
+#: src/ui_convert.c:30
+msgid "Converting:"
+msgstr "Konwertowanie:"
+
+#: src/ui_convert.c:35
+msgid "To:"
+msgstr "Do:"
+
+#: src/ui_convert.c:52
+msgid "From second:"
+msgstr "Z sekundy:"
+
+#: src/ui_convert.c:59
+msgid "Generate Thumbnail"
+msgstr "Wygeneruj miniaturkę"
+
+#: src/ui_convert.c:65
+msgid "Cancel"
+msgstr "Anuluj"
+
+#: src/ui_convert.c:82 src/ui_convert.c:110
+msgid "Close"
+msgstr "Zamknij"
+
+#: src/ui_convert.c:106
+#, c-format
+msgid "0% - stopped"
+msgstr ""
+
+#: src/ui_about.c:10
+#, fuzzy
+#| msgid "About PSPVC"
+msgid "About PSP Video Converter"
+msgstr "O PSPVC"
+
+#: src/ui_about.c:13
+#, fuzzy
+#| msgid "Close"
+msgid "_Close"
+msgstr "Zamknij"
+
+#: src/ui_about.c:45
+#, fuzzy
+#| msgid ""
+#| "PlayStation Portable Video Converter\n"
+#| "(http://pspvc.sourceforge.net)\n"
+#| "\n"
+#| "License: GPL v2\n"
+#| "(http://www.gnu.org/licenses/gpl.txt)\n"
+#| "\n"
+#| "Author: Philippe MAES\n"
+#| "\n"
+#| "Translations:\n"
+#| "Philippe MAES (English-French)\n"
+#| "Luca CALABRO (Italian)\n"
+#| "Tomasz DOMINIKOWSKI (Polish)\n"
+#| "lenooh (Slovenian)\n"
+#| "Christian Stake (German)"
+msgid ""
+"PlayStation Portable Video Converter v0.4 (C Edition)\n"
+"(http://github.com/ringtailedfox/pspvc)\n"
+"\n"
+"Inspired by PSPVC v0.3\n"
+"(http://pspvc.sourceforge.net)\n"
+"\n"
+"License: GPL v2\n"
+"http://www.gnu.org/licenses/gpl.txt\n"
+"\n"
+"Author: Philippe MAES\n"
+"\n"
+"C/GTK3 Edition:\n"
+"RingtailedFox (2026)\n"
+"\n"
+"Translations:\n"
+"Philippe MAES (English-French)\n"
+"Luca CALABRO (Italian)\n"
+"Tomasz DOMINIKOWSKI (Polish)\n"
+"Ienooh (Slovenian)\n"
+"Christian Stake (German)\n"
+msgstr ""
+"Konwerter filmów dla PlayStation Portable\n"
+"(http://pspvc.sourceforge.net)\n"
+"\n"
+"Licencja: GPL v2\n"
+"(http://www.gnu.org/licenses/gpl.txt)\n"
+"\n"
+"Autor: Philippe MAES\n"
+"\n"
+"Tłumaczenia:\n"
+"Philippe MAES (angielski, francuski)\n"
+"Luca CALABRO (włoski)\n"
+"Tomasz DOMINIKOWSKI (polski)\n"
+"lenooh (słoweński)\n"
+"Christian Stake (niemiecki)"
+
+#: src/ffmpeg.c:178
+#, c-format
+msgid "Failed to start ffmpeg: %s\n"
+msgstr ""
+
+#: src/ffmpeg.c:218 src/ffmpeg.c:252
+#, c-format
+msgid "100% - complete"
+msgstr ""
+
+#: src/ffmpeg.c:241
+#, c-format
+msgid "%d%% complete"
+msgstr ""
+
+#, c-format
+#~ msgid "Couldn't find pixmap file: %s"
+#~ msgstr "Nie można odnaleźć pliku pixmap: %s"
+
+#~ msgid "Unknown input format !!!"
+#~ msgstr "Nieznany format wejściowy!"
+
+#~ msgid "Start"
+#~ msgstr "Rozpocznij"
+
+#~ msgid "Progress"
+#~ msgstr "Postęp"
+
+#~ msgid "filename empty"
+#~ msgstr "pusta nazwa pliku"
+
+#~ msgid "source file not exists"
+#~ msgstr "plik źródłowy nie istnieje"
+
+#~ msgid "target file is already in queue"
+#~ msgstr "plik docelowy już znajduje się w kolejce"
+
+#~ msgid "Queue not empty"
+#~ msgstr "Kolejka nie jest pusta"

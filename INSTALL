@@ -1,0 +1,52 @@
+PSPVC — PSP Video Converter
+Installation Instructions
+=========================
+
+Requirements
+------------
+To build the C/GTK3 Edition of PSPVC, you will need:
+
+  • GCC or another C compiler
+  • GTK+ 3 development files
+  • FFmpeg
+  • x264
+  • pkg-config
+  • Autotools (automake, autoconf, libtool)
+
+Optional (for the Python Edition):
+  • Python 3
+  • PyGObject (GTK3 bindings)
+
+Building PSPVC
+--------------
+From the top-level directory:
+
+    ./configure
+    make
+
+Installing PSPVC
+----------------
+To install system-wide:
+
+    sudo make install
+
+This installs:
+
+  • /usr/bin/pspvc
+  • /usr/bin/pspvc-python
+  • /usr/share/pspvc/pixmaps/
+  • /usr/share/applications/pspvc.desktop
+
+Uninstalling PSPVC
+------------------
+To remove all installed files:
+
+    sudo make uninstall
+
+Notes
+-----
+The Python Edition (pspvc-python) is optional and requires Python 3.
+The C Edition is recommended for most users due to faster startup
+and native GTK3 integration.
+
+For licensing information, see the LICENSE and COPYING files.
