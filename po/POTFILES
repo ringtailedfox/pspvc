@@ -1,6 +1,0 @@
-     ../src/main.c \
-     ../src/ui_main.c \
-     ../src/ui_convert.c \
-     ../src/ui_about.c \
-     ../src/ffmpeg.c \
-     ../src/profile.c
