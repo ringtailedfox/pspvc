@@ -1,4 +1,4 @@
-PSP Video Converter (PSPVC) — v0.4 C Edition
+# ![PSPVC Icon] (./pixmaps/pspvc.png) PSP Video Converter (PSPVC) — v0.4 C Edition
 PSPVC is a lightweight GTK3 application for converting videos into PSP‑compatible MP4 format.
 This release includes both:
 
