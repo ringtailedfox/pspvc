@@ -28,4 +28,4 @@ po/stamp-po
 po/Makefile.in
 
 # Top-level PNGs (icons belong in pixmaps/)
-*.png
+/*.png
