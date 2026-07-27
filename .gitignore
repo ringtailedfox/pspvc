@@ -1,0 +1,31 @@
+# Autotools junk
+Makefile
+Makefile.in
+Makefile.in~
+Makefile~
+configure
+configure~
+config.log
+config.status
+aclocal.m4
+autom4te.cache/
+libtool
+ltmain.sh
+
+# Build artifacts
+*.o
+*.lo
+*.la
+*.good
+
+# Temporary editor files
+*~
+*.swp
+
+# Generated gettext files
+po/*.gmo
+po/stamp-po
+po/Makefile.in
+
+# Top-level PNGs (icons belong in pixmaps/)
+*.png
