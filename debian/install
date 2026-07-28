@@ -1,0 +1,5 @@
+usr/bin/pspvc
+usr/bin/pspvc-python
+usr/share/pspvc/pixmaps/*
+usr/share/applications/pspvc.desktop
+usr/share/locale/*/LC_MESSAGES/pspvc.mo

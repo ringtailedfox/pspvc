@@ -1,0 +1,30 @@
+Source: pspvc
+Section: utils
+Priority: optional
+Maintainer: RingtailedFox <slycooper1986@yahoo.ca>
+Standards-Version: 4.6.2
+
+Build-Depends: debhelper-compat (= 13),
+               dh-autoreconf,
+               autotools-dev,
+               automake,
+               pkg-config,
+               gettext,
+               intltool,
+               libgtk-3-dev,
+               libglib2.0-dev,
+               libpango1.0-dev,
+               libcairo2-dev,
+               libgdk-pixbuf-2.0-dev,
+               zlib1g-dev,
+               libavcodec-dev,
+               libavformat-dev,
+               libavutil-dev,
+               libswscale-dev
+
+Package: pspvc
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, python3, ffmpeg
+Description: PSP Video Converter (C Edition)
+ PSPVC is a graphical video converter designed for PSP-compatible formats.
+ This is the C Edition rewrite using GTK3 and FFmpeg.
