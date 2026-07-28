@@ -4,6 +4,8 @@
 	dh $@
 
 override_dh_auto_configure:
+	PKG_CONFIG_PATH=/usr/lib/x86_64-linux-gnu/pkgconfig \
+	PKG_CONFIG_LIBDIR=/usr/lib/x86_64-linux-gnu/pkgconfig \
 	./configure --prefix=/usr
 
 override_dh_auto_build:
