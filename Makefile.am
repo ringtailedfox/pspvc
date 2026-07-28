@@ -1,4 +1,6 @@
 SUBDIRS = src po
+bindir = $(prefix)/bin
+prefix = /usr
 
 EXTRA_DIST =
 

@@ -1,3 +1,5 @@
+bindir = $(prefix)/bin
+
 bin_PROGRAMS = pspvc
 
 pspvc_SOURCES = \

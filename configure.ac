@@ -3,11 +3,13 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_CONFIG_SRCDIR([src/main.c])
 AC_CONFIG_HEADERS([config.h])
 
+# Default install prefix should be /usr, not /usr/local
+AC_PREFIX_DEFAULT(/usr)
+
 # Define where data files (pixmaps) will be installed
 AC_DEFINE_UNQUOTED([PACKAGE_DATA_DIR],
-["/usr/local/share/pspvc"],
+["{datadir}/pspvc"],
 [Directory for PSPVC data files])
-
 
 # Checks for programs
 AC_PROG_CC
