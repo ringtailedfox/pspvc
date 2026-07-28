@@ -26,7 +26,6 @@ msgstr ""
 
 #: src/ui_main.c:73
 #, fuzzy
-#| msgid "Filename"
 msgid "Filename:"
 msgstr "Nazwa pliku"
 
@@ -36,25 +35,21 @@ msgstr "Przeglądaj"
 
 #: src/ui_main.c:88
 #, fuzzy
-#| msgid "Title"
 msgid "Title:"
 msgstr "Tytuł"
 
 #: src/ui_main.c:97
 #, fuzzy
-#| msgid "Profile"
 msgid "Profile:"
 msgstr "Profil"
 
 #: src/ui_main.c:115
 #, fuzzy
-#| msgid "Volume"
 msgid "Volume (%):"
 msgstr "Głośność"
 
 #: src/ui_main.c:125
 #, fuzzy
-#| msgid "PSP Filename"
 msgid "PSP Filename:"
 msgstr "Nazwa pliku na PSP"
 
@@ -64,7 +59,6 @@ msgstr "Konwertuj"
 
 #: src/ui_main.c:141
 #, fuzzy
-#| msgid "About PSPVC"
 msgid "About"
 msgstr "O PSPVC"
 
@@ -74,7 +68,6 @@ msgstr ""
 
 #: src/ui_main.c:171
 #, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
 msgstr "Anuluj"
 
@@ -84,7 +77,6 @@ msgstr ""
 
 #: src/ui_convert.c:17
 #, fuzzy
-#| msgid "Converting:"
 msgid "Converting..."
 msgstr "Konwertowanie:"
 
@@ -119,33 +111,16 @@ msgstr ""
 
 #: src/ui_about.c:10
 #, fuzzy
-#| msgid "About PSPVC"
 msgid "About PSP Video Converter"
 msgstr "O PSPVC"
 
 #: src/ui_about.c:13
 #, fuzzy
-#| msgid "Close"
 msgid "_Close"
 msgstr "Zamknij"
 
 #: src/ui_about.c:45
 #, fuzzy
-#| msgid ""
-#| "PlayStation Portable Video Converter\n"
-#| "(http://pspvc.sourceforge.net)\n"
-#| "\n"
-#| "License: GPL v2\n"
-#| "(http://www.gnu.org/licenses/gpl.txt)\n"
-#| "\n"
-#| "Author: Philippe MAES\n"
-#| "\n"
-#| "Translations:\n"
-#| "Philippe MAES (English-French)\n"
-#| "Luca CALABRO (Italian)\n"
-#| "Tomasz DOMINIKOWSKI (Polish)\n"
-#| "lenooh (Slovenian)\n"
-#| "Christian Stake (German)"
 msgid ""
 "PlayStation Portable Video Converter v0.4 (C Edition)\n"
 "(http://github.com/ringtailedfox/pspvc)\n"

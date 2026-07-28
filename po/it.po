@@ -24,7 +24,6 @@ msgstr ""
 
 #: src/ui_main.c:73
 #, fuzzy
-#| msgid "Filename"
 msgid "Filename:"
 msgstr "Nome del file"
 
@@ -34,7 +33,6 @@ msgstr "Sfoglia"
 
 #: src/ui_main.c:88
 #, fuzzy
-#| msgid "Title"
 msgid "Title:"
 msgstr "Titolo"
 
@@ -44,13 +42,11 @@ msgstr ""
 
 #: src/ui_main.c:115
 #, fuzzy
-#| msgid "Volume"
 msgid "Volume (%):"
 msgstr "Volume"
 
 #: src/ui_main.c:125
 #, fuzzy
-#| msgid "PSP Filename"
 msgid "PSP Filename:"
 msgstr "PSP Nome del File"
 
@@ -68,7 +64,6 @@ msgstr ""
 
 #: src/ui_main.c:171
 #, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
 msgstr "Annulla"
 
@@ -78,7 +73,6 @@ msgstr ""
 
 #: src/ui_convert.c:17
 #, fuzzy
-#| msgid "Converting:"
 msgid "Converting..."
 msgstr "Converti"
 
@@ -117,7 +111,6 @@ msgstr ""
 
 #: src/ui_about.c:13
 #, fuzzy
-#| msgid "Close"
 msgid "_Close"
 msgstr "Chiudi"
 

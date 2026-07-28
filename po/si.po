@@ -24,7 +24,6 @@ msgstr ""
 
 #: src/ui_main.c:73
 #, fuzzy
-#| msgid "Filename"
 msgid "Filename:"
 msgstr "Datoteka"
 
@@ -34,25 +33,21 @@ msgstr "Prebrskaj"
 
 #: src/ui_main.c:88
 #, fuzzy
-#| msgid "Title"
 msgid "Title:"
 msgstr "Naslov"
 
 #: src/ui_main.c:97
 #, fuzzy
-#| msgid "Profile"
 msgid "Profile:"
 msgstr "Profil"
 
 #: src/ui_main.c:115
 #, fuzzy
-#| msgid "Volume"
 msgid "Volume (%):"
 msgstr "Glasnost"
 
 #: src/ui_main.c:125
 #, fuzzy
-#| msgid "PSP Filename"
 msgid "PSP Filename:"
 msgstr "PSP ime datoteke"
 
@@ -62,7 +57,6 @@ msgstr "Pretvori"
 
 #: src/ui_main.c:141
 #, fuzzy
-#| msgid "About PSPVC"
 msgid "About"
 msgstr "O PSPVC"
 
@@ -72,7 +66,6 @@ msgstr ""
 
 #: src/ui_main.c:171
 #, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
 msgstr "Prekliči"
 
@@ -82,7 +75,6 @@ msgstr ""
 
 #: src/ui_convert.c:17
 #, fuzzy
-#| msgid "Converting:"
 msgid "Converting..."
 msgstr "Pretvarjam:"
 
@@ -117,13 +109,11 @@ msgstr ""
 
 #: src/ui_about.c:10
 #, fuzzy
-#| msgid "About PSPVC"
 msgid "About PSP Video Converter"
 msgstr "O PSPVC"
 
 #: src/ui_about.c:13
 #, fuzzy
-#| msgid "Close"
 msgid "_Close"
 msgstr "Zapri"
 
