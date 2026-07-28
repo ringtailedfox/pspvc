@@ -42,7 +42,7 @@ GtkWidget *create_convert_window(AppWidgets *app,
     gtk_grid_attach(GTK_GRID(grid), app->progress, 0, 2, 3, 1);
 
     /* Thumbnail placeholder */
-    gchar *path = g_build_filename(PACKAGE_DATA_DIR, "pixmaps", "pspvc_thm.png", NULL);
+    gchar *path = g_build_filename(PKGDATADIR, "pixmaps", "pspvc_thm.png", NULL);
     app->thumb = gtk_image_new_from_file(path);
     g_free(path);
     gtk_grid_attach(GTK_GRID(grid), app->thumb, 0, 3, 1, 2);

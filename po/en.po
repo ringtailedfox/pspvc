@@ -24,7 +24,6 @@ msgstr ""
 
 #: src/ui_main.c:73
 #, fuzzy
-#| msgid "Filename"
 msgid "Filename:"
 msgstr "Filename"
 
@@ -34,25 +33,21 @@ msgstr "Browse"
 
 #: src/ui_main.c:88
 #, fuzzy
-#| msgid "Title"
 msgid "Title:"
 msgstr "Title"
 
 #: src/ui_main.c:97
 #, fuzzy
-#| msgid "Profile"
 msgid "Profile:"
 msgstr "Profile"
 
 #: src/ui_main.c:115
 #, fuzzy
-#| msgid "Volume"
 msgid "Volume (%):"
 msgstr "Volume"
 
 #: src/ui_main.c:125
 #, fuzzy
-#| msgid "PSP Filename"
 msgid "PSP Filename:"
 msgstr "PSP Filename"
 
@@ -62,7 +57,6 @@ msgstr "Convert"
 
 #: src/ui_main.c:141
 #, fuzzy
-#| msgid "About PSPVC"
 msgid "About"
 msgstr "About PSPVC"
 
@@ -72,7 +66,6 @@ msgstr ""
 
 #: src/ui_main.c:171
 #, fuzzy
-#| msgid "Cancel"
 msgid "_Cancel"
 msgstr "Cancel"
 
@@ -118,13 +111,11 @@ msgstr ""
 
 #: src/ui_about.c:10
 #, fuzzy
-#| msgid "About PSPVC"
 msgid "About PSP Video Converter"
 msgstr "About PSPVC"
 
 #: src/ui_about.c:13
 #, fuzzy
-#| msgid "Close"
 msgid "_Close"
 msgstr "Close"
 

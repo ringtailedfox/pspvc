@@ -4,9 +4,9 @@
    language is requested. */
 #undef ENABLE_NLS
 
-/* Define to 1 if you have the Mac OS X function
-   CFLocaleCopyPreferredLanguages in the CoreFoundation framework. */
-#undef HAVE_CFLOCALECOPYPREFERREDLANGUAGES
+/* Define to 1 if you have the Mac OS X function CFLocaleCopyCurrent in the
+   CoreFoundation framework. */
+#undef HAVE_CFLOCALECOPYCURRENT
 
 /* Define to 1 if you have the Mac OS X function CFPreferencesCopyAppValue in
    the CoreFoundation framework. */
@@ -30,9 +30,6 @@
 
 /* Define to the address where bug reports for this package should be sent. */
 #undef PACKAGE_BUGREPORT
-
-/* Directory for PSPVC data files */
-#undef PACKAGE_DATA_DIR
 
 /* Define to the full name of this package. */
 #undef PACKAGE_NAME

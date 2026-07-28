@@ -11,7 +11,8 @@ pspvc_SOURCES = \
     profile.c \
     support.c
 
-AM_CPPFLAGS = -I$(top_srcdir)/include
+AM_CPPFLAGS = -I$(top_srcdir)/include -DPKGDATADIR=\"$(pkgdatadir)\"
 
 pspvc_CFLAGS = $(GTK_CFLAGS)
 pspvc_LDADD  = $(GTK_LIBS) $(INTLLIBS)
+

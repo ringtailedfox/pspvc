@@ -5,9 +5,9 @@
    language is requested. */
 #define ENABLE_NLS 1
 
-/* Define to 1 if you have the Mac OS X function
-   CFLocaleCopyPreferredLanguages in the CoreFoundation framework. */
-/* #undef HAVE_CFLOCALECOPYPREFERREDLANGUAGES */
+/* Define to 1 if you have the Mac OS X function CFLocaleCopyCurrent in the
+   CoreFoundation framework. */
+/* #undef HAVE_CFLOCALECOPYCURRENT */
 
 /* Define to 1 if you have the Mac OS X function CFPreferencesCopyAppValue in
    the CoreFoundation framework. */
@@ -31,9 +31,6 @@
 
 /* Define to the address where bug reports for this package should be sent. */
 #define PACKAGE_BUGREPORT "ringtailedfox"
-
-/* Directory for PSPVC data files */
-#define PACKAGE_DATA_DIR "/usr/local/share/pspvc"
 
 /* Define to the full name of this package. */
 #define PACKAGE_NAME "pspvc"

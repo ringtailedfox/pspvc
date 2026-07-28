@@ -20,7 +20,7 @@ GtkWidget *create_about_dialog(GtkWindow *parent)
     GtkWidget *box = gtk_dialog_get_content_area(GTK_DIALOG(dialog));
 
     /* PSP logo */
-    gchar *path = g_build_filename(PACKAGE_DATA_DIR, "pixmaps", "psp-console.png", NULL);
+    gchar *path = g_build_filename(PKGDATADIR, "pixmaps", "psp-console.png", NULL);
     GtkWidget *logo = gtk_image_new_from_file(path);
     g_free(path);
     gtk_widget_set_halign(logo, GTK_ALIGN_CENTER);

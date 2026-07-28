@@ -3,7 +3,6 @@ Section: utils
 Priority: optional
 Maintainer: RingtailedFox <slycooper1986@yahoo.ca>
 Standards-Version: 4.6.2
-
 Build-Depends: debhelper-compat (= 13),
                dh-autoreconf,
                autotools-dev,

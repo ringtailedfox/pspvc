@@ -55,7 +55,7 @@ GtkWidget *create_main_window(AppWidgets *app)
 
     /* Top banner */
 {
-    gchar *path = g_build_filename(PACKAGE_DATA_DIR, "pixmaps", "pspvc_09.png", NULL);
+    gchar *path = g_build_filename(PKGDATADIR, "pixmaps", "pspvc_09.png", NULL);
     // g_warning("BANNER PATH: %s", path);  // <-- add this
     GtkWidget *banner = gtk_image_new_from_file(path);
     g_free(path);
@@ -145,7 +145,7 @@ GtkWidget *create_main_window(AppWidgets *app)
 
     /* Bottom logo (floating overlay) */
     {
-        gchar *path = g_build_filename(PACKAGE_DATA_DIR, "pixmaps", "pspvc_logo.png", NULL);
+        gchar *path = g_build_filename(PKGDATADIR, "pixmaps", "pspvc_logo.png", NULL);
         GtkWidget *logo = gtk_image_new_from_file(path);
         g_free(path);
 

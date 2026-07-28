@@ -1,4 +1,4 @@
-# Autotools junk
+# Autotools generated files
 Makefile
 Makefile.in
 Makefile.in~
@@ -28,4 +28,13 @@ po/stamp-po
 po/Makefile.in
 
 # Top-level PNGs (icons belong in pixmaps/)
-/*.png
+*.png
+
+# Debian build artifacts (do NOT commit these)
+debian/.debhelper/
+debian/tmp/
+debian/files
+debian/*.substvars
+debian/autoreconf.*
+debian/*.debhelper.log
+debian/*.debhelper
