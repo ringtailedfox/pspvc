@@ -7,8 +7,13 @@ import shlex
 from gi.repository import Gtk, GObject, GLib, GdkPixbuf, Gdk
 import os
 
+# Installed location
+PKGDATADIR = "/usr/share/pspvc"
+PIXMAPDIR = os.path.join(PKGDATADIR, "pixmaps")
 
-
+# If running from source tree, override
+if os.path.exists("pixmaps/pspvc_logo.png"):
+    PIXMAPDIR = "pixmaps"
 
 FFMPEG = "/usr/bin/ffmpeg"
 
@@ -117,7 +122,7 @@ class PSPConverter(Gtk.Window):
 
         # Top banner
         try:
-            banner = Gtk.Image.new_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file("pixmaps/pspvc_09.png"))
+            banner = Gtk.Image.new_from_pixbuf(GdkPixbuf.Pixbuf.new_from_file(os.path.join(PIXMAPDIR, "pspvc_09.png")))
             grid.attach(banner, 0, 0, 3, 1)
         except Exception:
             pass
@@ -195,7 +200,7 @@ class PSPConverter(Gtk.Window):
 
         # Bottom logo
         try:
-            pix = GdkPixbuf.Pixbuf.new_from_file("pixmaps/pspvc_logo.png")
+            pix = GdkPixbuf.Pixbuf.new_from_file(os.path.join(PIXMAPDIR, "pspvc_logo.png"))
             logo = Gtk.Image.new_from_pixbuf(pix)
 
             logo.set_halign(Gtk.Align.CENTER)
@@ -366,7 +371,7 @@ class ConvertWindow(Gtk.Window):
         self.image = Gtk.Image()
 
         try:
-            pix = GdkPixbuf.Pixbuf.new_from_file("pixmaps/pspvc_thm.png")
+            pix = GdkPixbuf.Pixbuf.new_from_file(os.path.join(PIXMAPDIR, "pspvc_thm.png"))
             self.image.set_from_pixbuf(pix)
         except Exception:
             pass
@@ -517,7 +522,7 @@ class AboutWindow(Gtk.Dialog):
 
         # PSP logo at the top
         try:
-            pix = GdkPixbuf.Pixbuf.new_from_file("pixmaps/psp-console.png")
+            pix = GdkPixbuf.Pixbuf.new_from_file(os.path.join(PIXMAPDIR, "psp-console.png"))
             logo = Gtk.Image.new_from_pixbuf(pix)
             logo.set_halign(Gtk.Align.CENTER)
             box.add(logo)
