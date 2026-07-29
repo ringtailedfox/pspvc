@@ -7,6 +7,9 @@ configure
 configure~
 config.log
 config.status
+config.h
+config.h.in
+config.h.in~
 aclocal.m4
 autom4te.cache/
 libtool
@@ -17,6 +20,8 @@ ltmain.sh
 *.lo
 *.la
 *.good
+src/.deps/
+src/pspvc
 
 # Temporary editor files
 *~
@@ -27,9 +32,6 @@ po/*.gmo
 po/stamp-po
 po/Makefile.in
 
-# Top-level PNGs (icons belong in pixmaps/)
-*.png
-
 # Debian build artifacts (do NOT commit these)
 debian/.debhelper/
 debian/tmp/
@@ -38,3 +40,7 @@ debian/*.substvars
 debian/autoreconf.*
 debian/*.debhelper.log
 debian/*.debhelper
+
+# Upstream tarballs
+*.tar.gz
+*.tar.xz
